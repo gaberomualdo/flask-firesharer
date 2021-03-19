@@ -1,5 +1,5 @@
 # external imports
-import os, random
+import os, random, base64
 from flask import Flask, jsonify, send_from_directory
 from flask.globals import request
 
@@ -17,7 +17,7 @@ def get_current_pins():
 def get_new_pin():
     existing = set(get_current_pins())
     possibilities = set(range(100000, 999999))
-    return random.choice(list(possibilities - existing))
+    return str(random.choice(list(possibilities - existing)))
 
 # get files from pin
 @app.route("/api/<pin>")
@@ -27,17 +27,28 @@ def get_files_from_pin(pin):
             "error": "Pin does not exist."
         }), 400
     else:
-        pin_dir = FILES_DIR + str(pin) + "/"
+        pin_dir = FILES_DIR + pin + "/"
         files = next(os.walk(pin_dir))[2]
         return jsonify({
-            "files": [ pin_dir + file for file in files ]
+            "file": "/files/" + pin + "/" + files[0],
+            "filename": files[0]
         })
 
 # upload files
 @app.route('/api/', methods=['POST'])
 def upload_file():
-    uploaded_files = request.files
-    print(uploaded_files)
+    pin = get_new_pin()
+    file_dir = FILES_DIR + pin + "/"
+    filename = request.json['filename']
+    file_path = file_dir + filename
+    os.mkdir(file_dir)
+    f = open(file_path, 'wb+')
+    f.write(base64.b64decode(request.json['file'].encode('ascii')))
+    f.close()
+    return jsonify({
+        "pin": pin,
+        "name": filename
+    })
 
 # site
 @app.route('/')

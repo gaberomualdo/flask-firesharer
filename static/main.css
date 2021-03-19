@@ -20,12 +20,20 @@ body {
 }
 .container {
   width: 700px;
+  max-width: 100%;
   min-height: 90vh;
   background-color: #fff;
   box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   padding: 2rem 2.5rem;
+  padding-bottom: 4rem;
   position: relative;
+}
+@media only screen and (max-width: 800px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 h1 {
   font-size: 1.75rem;
@@ -41,7 +49,7 @@ h2 {
   font-size: 1.35rem;
 }
 section {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 input,
@@ -104,15 +112,82 @@ footer {
 
 label.upload {
   width: 100%;
-  padding: 2rem;
+  height: 3.75rem;
   text-align: center;
   display: block;
+  float: left;
   background-color: #f0f0f0;
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.2s;
   margin-top: 0.5rem;
+  position: relative;
 }
 label.upload:hover {
   background-color: #e8e8e8;
+}
+label.upload + button {
+  display: block;
+  float: left;
+  margin-right: 0;
+}
+label.upload:not(.has-file) + button {
+  display: none;
+}
+
+label.upload.has-file {
+  height: 2.15rem;
+  width: calc(100% - 10.5rem);
+  margin-right: 0.5rem;
+}
+
+label.upload span {
+  padding: 0 1rem;
+  transition: opacity 0.2s;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+label.upload:not(.has-file) span.file-name,
+label.upload.has-file:hover span.file-name,
+label.upload.has-file:not(:hover) span.title {
+  opacity: 0;
+}
+
+.success {
+  display: block;
+  clear: both;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-radius: 3px;
+  background-color: rgba(39, 174, 96, 0.25);
+  transform: translateY(0.75rem);
+}
+.success * {
+  font-size: 0.9rem;
+  color: rgba(39, 174, 96, 1);
+}
+.success h3 {
+  font-size: 2rem;
+  letter-spacing: 0.5rem;
+}
+
+.success:not(.displayed) {
+  display: none;
+}
+
+ol {
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+ol li {
+  line-height: 1.5;
+  margin-top: 0.5rem;
 }

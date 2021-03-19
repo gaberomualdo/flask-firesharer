@@ -17,20 +17,23 @@
 
       <section>
         <h2>How It Works</h2>
-        <p></p>
+        <ol>
+          <li>Upload a file and get a unique pin that references your file.</li>
+          <li>Send your pin and a link to this site to someone else, and they can download the file using your pin!</li>
+        </ol>
       </section>
 
       <section>
         <h2>Download a File</h2>
-        <input type="number" placeholder="File Pin" />
-        <button>Download File &nbsp;&rarr;</button>
+        <input type="number" placeholder="Enter File Pin" />
+        <button class="download-btn">Download File &nbsp;&rarr;</button>
       </section>
 
       <section>
         <h2>Upload a File</h2>
-        <input type="file" id="file" />
-        <label class="upload" for="file">Browse Local Files</label>
-        <button>Upload File &nbsp;&rarr;</button>
+        <input type="file" id="file" multiple="false" />
+        <label class="upload" for="file"><span class="title">Browse Local Files</span><span class="file-name"></span></label>
+        <button class="upload-btn">Upload File &nbsp;&rarr;</button>
         <div class="success">
           <p>File Uploaded Successfully!</p>
           <h3></h3>
@@ -43,4 +46,6 @@
       </footer>
     </main>
   </body>
+
+  <script src="script.js"></script>
 </html>
